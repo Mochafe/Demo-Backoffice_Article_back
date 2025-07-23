@@ -20,11 +20,8 @@ export class User extends Document {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true, maxlength: 64, trim: true, lowercase: true })
-  firstname: string;
-
-  @Prop({ required: true, maxlength: 64, trim: true, lowercase: true })
-  lastname: string;
+  @Prop({ required: true, maxlength: 64, trim: true })
+  username: string;
 
   createdAt: Date;
 

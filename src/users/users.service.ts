@@ -10,14 +10,12 @@ export class UsersService {
   async create(
     email: string,
     password: string,
-    firstname: string,
-    lastname: string,
+    username: string,
   ): Promise<User> {
     return await this.userModel.create({
       email,
       password,
-      firstname,
-      lastname,
+      username,
     });
   }
 

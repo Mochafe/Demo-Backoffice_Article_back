@@ -13,14 +13,12 @@ export class AuthService {
   async register(
     email: string,
     password: string,
-    firstname: string,
-    lastname: string,
+    username: string,
   ): Promise<User> {
     const registredUser = await this.usersService.create(
       email,
       password,
-      firstname,
-      lastname,
+      username,
     );
 
     // Send confirmation mail
