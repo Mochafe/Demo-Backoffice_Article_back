@@ -2,7 +2,7 @@ import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import mongoose, { Document, HydratedDocument } from 'mongoose';
 import { constants } from './constants';
 import { User } from 'src/users/user.schema';
-import { ArticleStatusEnum } from './articleStatus.enum';
+import { ArticleStatusEnum } from './enum/articleStatus.enum';
 
 export type ArticleDocument = HydratedDocument<Article>;
 
