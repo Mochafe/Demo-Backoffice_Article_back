@@ -17,10 +17,10 @@ export class User extends Document {
   })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, minlength: 6, maxlength: 64, toJSONSchema: false })
   password: string;
 
-  @Prop({ required: true, maxlength: 64, trim: true })
+  @Prop({ required: true, minlength: 4, maxlength: 64, trim: true })
   username: string;
 
   createdAt: Date;
@@ -28,7 +28,7 @@ export class User extends Document {
   updatedAt: Date;
 
   async comparePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
+    return await bcrypt.compare(password, this.password);
   }
 }
 
@@ -45,7 +45,12 @@ UserSchema.pre('save', async function (next) {
 
 UserSchema.set('toJSON', {
   transform: function (_doc, ret) {
-    delete (ret as any).password;
-    return ret;
+    return {
+      id: ret._id,
+      email: ret.email,
+      username: ret.username,
+      createdAt: ret.createdAt,
+      updatedAt: ret.updatedAt,
+    };
   },
 });

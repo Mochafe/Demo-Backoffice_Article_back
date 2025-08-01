@@ -3,6 +3,7 @@ import {
   IsString,
   IsStrongPassword,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class RegisterDto {
@@ -10,15 +11,17 @@ export class RegisterDto {
   email: string;
 
   @IsStrongPassword({
-    minLength: 4,
+    minLength: 6,
     minLowercase: 1,
     minNumbers: 1,
     minSymbols: 1,
     minUppercase: 1,
   })
+  @MaxLength(64)
   password: string;
 
   @IsString()
+  @MinLength(4)
   @MaxLength(64)
   username: string;
 }
