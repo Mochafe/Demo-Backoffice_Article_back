@@ -1,7 +1,18 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { AuthGuard } from './auth.guard';
+import { User } from 'src/users/user.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -21,5 +32,14 @@ export class AuthController {
   @HttpCode(HttpStatus.ACCEPTED)
   async login(@Body() loginDto: LoginDto) {
     return this.authService.signIn(loginDto.email, loginDto.password);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  @HttpCode(HttpStatus.OK)
+  async me(@Req() req: any) {
+    const user: User = req.user;
+
+    return user;
   }
 }
